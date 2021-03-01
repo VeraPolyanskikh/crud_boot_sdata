@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body bgcolor="#009999">
+
+<br/>
+<div>
+<form th:method="PUT" th:action="@{/templates/pages/admin/{id}(id=${editUser.id})}" th:object="${editUser}">
+    <table width="30%">
+        <tr><td>
+            <label for="name">Login</label>
+        </td>
+            <td>
+                <input type="text" th:field="*{login}"  id="login"/>
+            </td></tr>
+        <tr><td>
+            <label for="passwd">Password</label>
+        </td>
+            <td>
+                <input type="password" th:value="${editUser.passwd}" name="passwd"
+                      id="passwd"/>
+            </td></tr>
+
+        <tr><td>
+    <label for="name">Name</label>
+        </td>
+            <td>
+    <input type="text" th:field="*{name}" id="name"/>
+            </td></tr>
+           <tr> <td>
+    <label for="name">Lastname</label>
+        </td>
+            <td>
+    <input type="text" th:field="*{lastName}" id="lastName"/>
+        </td></tr>
+        <tr><td>
+    <label for="name">Age</label>
+        </td>
+            <td>
+    <input type="text" th:field="*{age}" id="age"/>
+            </td>
+        </tr>
+        <tr><td>
+            <label for="roles">Roles</label>
+        </td>
+            <td>
+                <select  id="roles" name="roles" multiple="multiple" >
+                    <option th:each="roleItem : ${allRoles}"
+                            th:value="${{roleItem}}"
+                            th:text="${roleItem.roleName.name()}"
+                    th:selected="${editUser.roles.contains(roleItem)}">option
+
+            </select>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <input type="submit" value="Edit User"/>
+    <br/>
+</form>
+
+<form th:method="DELETE" th:action="@{/templates/pages/admin/{id}(id=${editUser.id})}">
+    <input type="submit" value="Delete User"/>
+</form>
+    <a th:href="@{/templates/pages/admin}" text="Logout">index</a>
+    <br/>
+    <a th:href="@{/logout}" text="Logout">Logout</a>
+    <br/>
+</div>
+</body>
+</html>
