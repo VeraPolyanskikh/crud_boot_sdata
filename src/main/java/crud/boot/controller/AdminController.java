@@ -3,6 +3,7 @@ package crud.boot.controller;
 import crud.boot.model.User;
 import crud.boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import java.util.List;
 public class AdminController {
 
     public final UserService userService;
+    @Value("${welcome.message}")
+    private String message;
 
     @Autowired
     public AdminController(UserService userService) {
@@ -39,14 +42,7 @@ public class AdminController {
         userService.saveUser(user);
         return "redirect:/admin";
     }
-
-    @ModelAttribute("header")
-    public String populateHeader() {
-        return "Welcome ADMIN";
-    }
-
-
-
+    
     @GetMapping(value = "/{id}")
     public String edit(@PathVariable("id") long id, Model model) {
         model.addAttribute("editUser", userService.getUser(id));
@@ -64,5 +60,10 @@ public class AdminController {
     public String delete(@PathVariable("id") long id) {
         userService.removeUserById(id);
         return "redirect:/admin";
+    }
+
+    @ModelAttribute("header")
+    public String populateHeader() {
+        return message;
     }
 }

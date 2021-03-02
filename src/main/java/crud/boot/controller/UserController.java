@@ -1,6 +1,7 @@
 package crud.boot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +23,8 @@ public class UserController {
     private String message;
 
     @Autowired
-    public UserController(UserDetailsService userDetailsService) {
+
+    public UserController(@Qualifier("userDetailsServiceImpl")UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -35,10 +37,13 @@ public class UserController {
         return "user/show";
     }
 
+    @ModelAttribute("header")
+    public String populateHeader() {
+        return message;
+    }
+
     @GetMapping
     public String getLoginPage() {
         return "user/login";
     }
-
-
 }

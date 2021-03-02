@@ -4,6 +4,7 @@ import crud.boot.model.Role;
 import crud.boot.security.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -87,15 +91,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(12);
     }
     @Override
-    /**
-     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(WebSecurity)
-     */
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web)  {
         web
                 .ignoring()
                 .antMatchers("/resources/**"); // #3
     }
 
+    @Bean
+    public FilterRegistrationBean<HiddenHttpMethodFilter> hiddenHttpMethodFilter(){
+        FilterRegistrationBean<HiddenHttpMethodFilter> fb = new FilterRegistrationBean<>(new HiddenHttpMethodFilter());
+        fb.setUrlPatterns(Arrays.asList("/*"));
+        return fb;
+    }
     // Необходимо для шифрования паролей
     // В данном примере не используется, отключен
    /* @Bean

@@ -1,17 +1,18 @@
 package crud.boot.config;
 
-import org.springframework.web.filter.HiddenHttpMethodFilter;
+import crud.boot.security.config.SecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     // Метод, указывающий на класс конфигурации
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class<?>[]{
+                WebConfig.class,
+                SecurityConfig.class,
+                PersistenceJPAConfig.class
+        };
     }
 
 
@@ -22,22 +23,10 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
                 WebConfig.class
         };
     }
-
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        super.onStartup(servletContext);
-        registerHiddenFieldFilter(servletContext);
-    }
-
     /* Данный метод указывает url, на котором будет базироваться приложение */
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
-    }
-
-    private void registerHiddenFieldFilter(ServletContext aContext) {
-        aContext.addFilter("hiddenHttpMethodFilter",
-                new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }
 
 }
