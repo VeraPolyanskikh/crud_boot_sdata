@@ -20,6 +20,10 @@ public class Role implements GrantedAuthority {
 
     }
 
+    public Role(RoleItem roleName) {
+        this.roleName = roleName;
+    }
+
     public RoleItem getRoleName() {
         return roleName;
     }

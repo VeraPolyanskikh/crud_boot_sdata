@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,9 +31,9 @@ public class User implements UserDetails {
     private Byte age;
 
     @Column(nullable = false)
-    @ManyToMany(targetEntity = Role.class)
-    @JoinTable(foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT))
-    private Set<Role> roles ;
+    @ManyToMany(targetEntity = Role.class,fetch = FetchType.LAZY)
+
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
 

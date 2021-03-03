@@ -1,8 +1,9 @@
 package crud.boot.service;
 
-import crud.boot.dao.UserDAO;
 import crud.boot.model.Role;
 import crud.boot.model.User;
+import crud.boot.repos.RoleRepository;
+import crud.boot.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
-    private final UserDAO userDao;
+@Transactional
+public class UserServiceImpl extends BaseService implements UserService {
+    private final UserRepository repoUser;
+    private final RoleRepository repoRole;
+
     private  PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserDAO userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository repoUser,RoleRepository repoRole) {
+        this.repoUser = repoUser;
+        this.repoRole = repoRole;
     }
 
     @Autowired
@@ -31,44 +36,44 @@ public class UserServiceImpl implements UserService {
         if(user.getPasswd() != null){
             user.setPasswd(passwordEncoder.encode(user.getPasswd()));
         }
-        userDao.saveUser(user);
+        repoUser.save(user);
     }
 
     @Override
     @Transactional
     public void updateUser(Long id, User user) {
-        User found = userDao.getUserById(id);
+        User found = repoUser.findById(id).get();
         if(user.getPasswd() != null && !user.getPasswd().equals(found.getPasswd())
                 &&!passwordEncoder.matches(user.getPasswd(),found.getPasswd())) {
             user.setPasswd(passwordEncoder.encode(user.getPasswd()));
         }else{
             user.setPasswd(found.getPasswd());
         }
-        userDao.saveUser(user);
+        repoUser.save(user);
     }
 
     @Override
     @Transactional(readOnly = true)
     public User getUser(long id) {
-        return userDao.getUserById(id);
+        return repoUser.findById(id).get();
     }
 
     @Override
     @Transactional
     public void removeUserById(long id) {
-        userDao.removeUserById(id);
+        repoUser.deleteById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return repoUser.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
-        return userDao.getAllRoles();
+        return repoRole.findAll();
     }
 
 }
