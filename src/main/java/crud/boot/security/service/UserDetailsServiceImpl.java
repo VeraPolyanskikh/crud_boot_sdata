@@ -21,19 +21,8 @@ public class UserDetailsServiceImpl extends BaseService implements UserDetailsSe
 
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return repo.findOne(new Example<User>() {
-            @Override
-            public User getProbe() {
-                User user = new User();
-                user.setLogin(s);
-                return user;
-            }
-
-            @Override
-            public ExampleMatcher getMatcher() {
-                return ExampleMatcher.matching();
-            }
-        }).get();
+        return repo.getUserByLogin(s);
     }
 }

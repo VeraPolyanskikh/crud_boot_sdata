@@ -16,7 +16,6 @@ import java.util.List;
 public interface
 UserRepository extends JpaRepository<User,Long> {
 
-
-    @Query("select u from User u where u.login=:loginStr")
+    @Query("select u from User u LEFT JOIN FETCH u.roles where u.login=:loginStr")
     User getUserByLogin(@Param("loginStr") String loginStr);
 }

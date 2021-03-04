@@ -76,7 +76,7 @@ public class PersistenceJPAConfig {
     final Map<String,Object> hibernateProperties() {
         return Arrays.stream(new String[]{"hibernate.show_sql",
                 "hibernate.hbm2ddl.auto","hibernate.dialect","hibernate.format_sql",
-                "hibernate.use_sql_comments","hibernate.enable_lazy_load_no_trans"})
+                "hibernate.use_sql_comments"})
                 .collect(Collectors.toMap(s -> s, s->env.getRequiredProperty(s)));
     }
 

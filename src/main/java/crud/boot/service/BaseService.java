@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContextType;
 @Transactional
 public class BaseService {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     protected EntityManager entityManager;
 
     public EntityManager getEntityManager() {
