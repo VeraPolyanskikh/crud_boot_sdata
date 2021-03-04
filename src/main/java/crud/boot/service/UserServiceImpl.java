@@ -17,23 +17,23 @@ public class UserServiceImpl extends BaseService implements UserService {
     private final UserRepository repoUser;
     private final RoleRepository repoRole;
 
-    private  PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository repoUser,RoleRepository repoRole) {
+    public UserServiceImpl(UserRepository repoUser, RoleRepository repoRole) {
         this.repoUser = repoUser;
         this.repoRole = repoRole;
     }
 
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder  passwordEncoder) {
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public void saveUser(User user) {
-        if(user.getPasswd() != null){
+        if (user.getPasswd() != null) {
             user.setPasswd(passwordEncoder.encode(user.getPasswd()));
         }
         repoUser.save(user);
@@ -43,10 +43,10 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Transactional
     public void updateUser(Long id, User user) {
         User found = repoUser.findById(id).get();
-        if(user.getPasswd() != null && !user.getPasswd().equals(found.getPasswd())
-                &&!passwordEncoder.matches(user.getPasswd(),found.getPasswd())) {
+        if (user.getPasswd() != null && !user.getPasswd().equals(found.getPasswd())
+                && !passwordEncoder.matches(user.getPasswd(), found.getPasswd())) {
             user.setPasswd(passwordEncoder.encode(user.getPasswd()));
-        }else{
+        } else {
             user.setPasswd(found.getPasswd());
         }
         repoUser.save(user);

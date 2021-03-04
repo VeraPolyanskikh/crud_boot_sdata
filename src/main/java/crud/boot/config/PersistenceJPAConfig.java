@@ -2,9 +2,7 @@ package crud.boot.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -17,15 +15,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 @Configuration

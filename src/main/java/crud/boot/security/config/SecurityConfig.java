@@ -90,15 +90,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new BCryptPasswordEncoder(12);
     }
+
     @Override
-    public void configure(WebSecurity web)  {
+    public void configure(WebSecurity web) {
         web
                 .ignoring()
                 .antMatchers("/resources/**"); // #3
     }
 
     @Bean
-    public FilterRegistrationBean<HiddenHttpMethodFilter> hiddenHttpMethodFilter(){
+    public FilterRegistrationBean<HiddenHttpMethodFilter> hiddenHttpMethodFilter() {
         FilterRegistrationBean<HiddenHttpMethodFilter> fb = new FilterRegistrationBean<>(new HiddenHttpMethodFilter());
         fb.setUrlPatterns(Arrays.asList("/*"));
         return fb;
