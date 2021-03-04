@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body bgcolor="#009999">
+<div th:object="${header}" th:text="${header}" ></div>
+<br/>
+<div width="40%" >
+
+    <table border="1" width="45%" >
+        <tr
+                th:each="user, iStat : ${users}"
+                th:style="${iStat.odd}? 'background-color: #99ccff;'"
+                th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td  th:text="${iStat.index+1}"/>
+            <td ><a th:href="@{/admin/{id}(id=${user.id})}" th:text="${user.login}"/></td>
+            <td th:text="${user.name}"/>
+            <td th:text="${user.lastName}" />
+            <td th:text="${user.age}" />
+
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <a th:href="@{/admin/new}" text="New user">New user</a>
+    <br/>
+    <a th:href="@{/user}" text="SELF">SELF</a>
+    <br/>
+    <a th:href="@{/logout}" text="Logout">Logout</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body bgcolor="#009999">
+<div th:object="${header}" th:text="${header}" ></div>
+<br/>
+<div>
+
+    <table width="30%" th:object="${showUser}" border="1">
+        <tr><td>
+            <label for="login">Login</label>
+        </td>
+            <td th:text="${showUser.login}" id="login"/>
+           </tr>
+        <tr><td>
+    <label for="name">Name</label>
+        </td>
+        <td th:text="${showUser.name}" id="name"/>
+        </tr>
+           <tr> <td>
+    <label for="name">Lastname</label>
+        </td>
+               <td th:text="${showUser.lastName}" id="lastName"/>
+   </tr>
+        <tr><td>
+    <label for="age">Age</label>
+        </td>
+            <td th:text="${showUser.age}" id="age"/>
+        </tr>
+        <tr><td>
+            <label for="roles">Roles</label>
+        </td>
+            <td th:text="${showUser.roles.toString()}" id="roles"/>
+        </tr>
+    </table>
+</div>
+<br/>
+<a th:href="@{/logout}" text="Logout">Logout</a>
+</body>
+</html>
