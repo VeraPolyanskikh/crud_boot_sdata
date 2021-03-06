@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"crud.boot.repos"})
@@ -98,7 +97,8 @@ public class PersistenceJPAConfig {
                 .setMatchingStrategy(MatchingStrategies.STRICT)
                 .setFieldMatchingEnabled(true)
                 .setSkipNullEnabled(true)
-                .setDeepCopyEnabled(true);
+                .setDeepCopyEnabled(true)
+                .setFieldAccessLevel(PRIVATE);
         return mapper;
     }
 }
