@@ -98,7 +98,7 @@ public class PersistenceJPAConfig {
                 .setFieldMatchingEnabled(true)
                 .setSkipNullEnabled(true)
                 .setDeepCopyEnabled(true)
-                .setFieldAccessLevel(PRIVATE);
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
         return mapper;
     }
 }
