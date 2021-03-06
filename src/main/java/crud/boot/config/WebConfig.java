@@ -21,11 +21,11 @@ public class WebConfig implements WebMvcConfigurer {
 
         this.applicationContext = applicationContext;
     }
-
+/*
     @Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
         formatterRegistry.addFormatter(new RoleFormatter());
     }
-
+*/
 
 }

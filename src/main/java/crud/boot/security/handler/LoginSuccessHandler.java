@@ -1,6 +1,6 @@
 package crud.boot.security.handler;
 
-import crud.boot.model.Role;
+import crud.boot.dto.RoleItem;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -20,9 +20,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         String context = httpServletRequest.getContextPath();
-        if (roles.contains(Role.RoleItem.ADMIN.getAuthority())) {
+        if (roles.contains(RoleItem.ADMIN.getAuthority())) {
             httpServletResponse.sendRedirect(context + "/admin");
-        } else if (roles.contains(Role.RoleItem.USER.getAuthority())) {
+        } else if (roles.contains(RoleItem.USER.getAuthority())) {
             httpServletResponse.sendRedirect(context + "/user");
         } else {
             httpServletResponse.sendRedirect(context + "/");

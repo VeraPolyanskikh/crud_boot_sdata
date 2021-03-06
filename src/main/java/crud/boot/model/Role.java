@@ -1,16 +1,18 @@
 package crud.boot.model;
 
+import crud.boot.dto.RoleItem;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 // Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
 // Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
 @Entity
-public class Role implements GrantedAuthority {
+public class Role implements GrantedAuthority , Serializable {
 
     @Id
     @Enumerated(EnumType.STRING)
@@ -44,12 +46,4 @@ public class Role implements GrantedAuthority {
         return roleName.getAuthority();
     }
 
-    public enum RoleItem {
-        ADMIN,
-        USER,
-        OTHER;
-        public String getAuthority() {
-            return "ROLE_" + name();
-        }
-    }
 }

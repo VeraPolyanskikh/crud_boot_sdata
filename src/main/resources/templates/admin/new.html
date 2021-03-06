@@ -48,8 +48,8 @@
                 <td>
                     <select  id="roles" name="roles" multiple="multiple" >
                         <option th:each="roleItem : ${allRoles}"
-                                th:value="${roleItem.roleName.name()}"
-                                th:text="${roleItem.roleName.name()}">option
+                                th:value="${roleItem.name()}"
+                                th:text="${roleItem.name()}">option
                         </option>
 
                     </select>

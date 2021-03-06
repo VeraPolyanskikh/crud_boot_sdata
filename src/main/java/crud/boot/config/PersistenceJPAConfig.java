@@ -1,6 +1,8 @@
 package crud.boot.config;
 
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"crud.boot.repos"})
@@ -85,5 +89,17 @@ public class PersistenceJPAConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+
+        ModelMapper mapper = new ModelMapper();
+
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .setDeepCopyEnabled(true);
+        return mapper;
+    }
 }
 

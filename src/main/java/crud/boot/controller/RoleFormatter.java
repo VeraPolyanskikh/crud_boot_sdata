@@ -1,5 +1,6 @@
 package crud.boot.controller;
 
+import crud.boot.dto.RoleItem;
 import crud.boot.model.Role;
 import org.springframework.format.Formatter;
 
@@ -11,7 +12,7 @@ public class RoleFormatter implements Formatter<Role> {
     @Override
     public Role parse(String id, Locale locale) {
         Role role = new Role();
-        role.setRoleName(Role.RoleItem.valueOf(id));
+        role.setRoleName(RoleItem.valueOf(id));
         return role;
     }
 

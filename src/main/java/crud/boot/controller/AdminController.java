@@ -1,5 +1,6 @@
 package crud.boot.controller;
 
+import crud.boot.dto.UserDto;
 import crud.boot.model.User;
 import crud.boot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,20 @@ public class AdminController {
 
     @GetMapping()
     public String list(Model model) {
-        List<User> list = userService.getAllUsers();
+        List<UserDto> list = userService.getAllUsers();
         model.addAttribute("users", list);
         return "admin/index";
     }
 
     @GetMapping(value = "/new")
     public String create(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDto());
         model.addAttribute("allRoles", userService.getAllRoles());
         return "admin/new";
     }
 
     @PostMapping(value = "/create")
-    public String save(@ModelAttribute("user") User user) {
+    public String save(@ModelAttribute("user") UserDto user) {
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -51,7 +52,7 @@ public class AdminController {
     }
 
     @PutMapping(value = "/{id}")
-    public String update(@PathVariable("id") long id, @ModelAttribute("editUser") User user) {
+    public String update(@PathVariable("id") long id, @ModelAttribute("editUser") UserDto user) {
         userService.updateUser(id, user);
         return "redirect:/admin";
     }

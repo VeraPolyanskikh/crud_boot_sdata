@@ -1,6 +1,6 @@
 package crud.boot.security.config;
 
-import crud.boot.model.Role;
+import crud.boot.dto.RoleItem;
 import crud.boot.security.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,13 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
                 // защищенные URL
-                .antMatchers(HttpMethod.GET, "/admin/**").hasRole(Role.RoleItem.ADMIN.name())
-                .antMatchers(HttpMethod.DELETE, "/admin/**").hasRole(Role.RoleItem.ADMIN.name())
-                .antMatchers(HttpMethod.POST, "/admin/**").hasRole(Role.RoleItem.ADMIN.name())
-                .antMatchers(HttpMethod.PUT, "/admin/**").hasRole(Role.RoleItem.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/admin/**").hasRole(RoleItem.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE, "/admin/**").hasRole(RoleItem.ADMIN.name())
+                .antMatchers(HttpMethod.POST, "/admin/**").hasRole(RoleItem.ADMIN.name())
+                .antMatchers(HttpMethod.PUT, "/admin/**").hasRole(RoleItem.ADMIN.name())
 
-                .antMatchers(HttpMethod.GET, "/user/**").hasAnyRole(Role.RoleItem.ADMIN.name(),
-                Role.RoleItem.USER.name())
+                .antMatchers(HttpMethod.GET, "/user/**").hasAnyRole(RoleItem.ADMIN.name(),
+                RoleItem.USER.name())
                 .anyRequest().authenticated();
     }
 

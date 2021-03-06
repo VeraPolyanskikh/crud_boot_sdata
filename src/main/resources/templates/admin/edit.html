@@ -51,8 +51,8 @@
                 <td>
                     <select  id="roles" name="roles" multiple="multiple" >
                         <option th:each="roleItem : ${allRoles}"
-                                th:value="${{roleItem}}"
-                                th:text="${roleItem.roleName.name()}"
+                                th:value="${roleItem.name()}"
+                                th:text="${roleItem.name()}"
                                 th:selected="${editUser.roles.contains(roleItem)}">option
 
                     </select>

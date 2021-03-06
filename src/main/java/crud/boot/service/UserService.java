@@ -1,20 +1,22 @@
 package crud.boot.service;
 
+import crud.boot.dto.RoleItem;
+import crud.boot.dto.UserDto;
 import crud.boot.model.Role;
 import crud.boot.model.User;
 
 import java.util.List;
 
 public interface UserService  {
-    void saveUser(User user);
+    void saveUser(UserDto user);
 
-    User getUser(long id);
+    UserDto getUser(long id);
 
-    void updateUser(Long id, User user);
+    void updateUser(Long id, UserDto user);
 
     void removeUserById(long id);
 
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
-    List<Role> getAllRoles();
+    List<RoleItem> getAllRoles();
 }
